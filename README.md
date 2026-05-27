@@ -1,0 +1,6 @@
+- The playability of the game decreases in the later stages after using various convenient mods, such as TeamUpgrades and SharedHealth.
+- The intention is to allocate more funds towards items that require repeated purchases.
+- The prices of configurable treatment packs, upgrade items, and energy crystals.
+- The configurable items can have basic multipliers, random multipliers, player-influenced base values, level base values(use with caution), and so on.
+- The default configuration removes the official discount and reverses it.
+- It can be used in both single-player and multiplayer modes.
