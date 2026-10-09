@@ -4,13 +4,12 @@ After installing convenience mods such as TeamUpgrades and SharedHealth, the gam
 
 ## Features
 
-- Separately adjusts prices for **Upgrade Items**, **Health Packs**, and **Energy Crystals**
+- Separately adjusts prices for **Upgrade Items**, **Health Packs**, and **Energy Crystals** (weapons and handcarts are **not** affected)
 - Each category independently supports:
   - **Base multiplier** for direct price scaling
   - **Random multiplier** for per-shop-visit price fluctuation
   - **Player-count influence** for dynamic pricing in lobbies
   - **Custom growth values** that override the vanilla "purchase count / level → price" scaling
-- All configuration lives in an external BepInEx CFG file — no recompilation needed
 - Default configuration removes the vanilla discount scheme (more players = cheaper) and **reverses** it (more players = more expensive)
 - Works in **both single-player and multiplayer**
 
@@ -42,7 +41,7 @@ After installing convenience mods such as TeamUpgrades and SharedHealth, the gam
 |---|---|---|---|
 | `RandomEnable` | `false` | true / false | Master switch for random price fluctuation across all items |
 | `RandomMinMultiplier` | `0.8` | 0.1 ~ 2 | Lower bound of the random multiplier |
-| `RandomMaxMultiplier` | `1.2` | 0.1 ~ 2 | Upper bound of the random multiplier |
+| `RandomMaxMultiplier` | `1.2` | 0.1 ~ 5 | Upper bound of the random multiplier |
 
 When enabled, every shop visit draws a random multiplier from `[min, max]` and stacks it onto each item's base multiplier.
 
@@ -56,33 +55,10 @@ Disabled by default. When enabled, these values replace the vanilla "purchase co
 | `UpgradeValueOwnedIncrease` | `0.5` | 0.1 ~ 1 | Price growth factor per upgrade item purchase |
 | `HealthPackValueLevelIncrease` | `0.05` | 0.01 ~ 0.1 | Price growth factor per cleared level for health packs |
 | `CrystalValueLevelIncrease` | `0.2` | 0.01 ~ 0.5 | Price growth factor per cleared level for energy crystals |
-| `MaxLevelLimit` | `15` | 15 ~ 50 | Upper bound of cleared levels that contribute to price growth. Price stops scaling past this level, preventing runaway cost on long runs |
+| `MaxLevelLimit` | `15` | 15 ~ 100 | Upper limit of affected levels |
 
 ### Logging
 
 | Key | Default | Range | Description |
 |---|---|---|---|
 | `EnableDebugLogging` | `false` | true / false | When enabled, prints per-item price calculation details to the BepInEx log for tuning/debugging |
-
-## Price Formulas (Reference)
-
-### Upgrade Items
-```
-final = ⌈ base × (1 + PlayerInfluence × (playerCount − 1))
-             × (1 + purchaseCount × UpgradeValueOwnedIncrease)
-             × (BaseMultiplier + randomMultiplier − 1) ⌉
-```
-- When `EnableCustomBaseIncrease` is **off**, `UpgradeValueOwnedIncrease` is replaced by vanilla `upgradeValueIncrease`.
-
-### Health Packs
-```
-final = ⌈ base × (1 + PlayerInfluence × (playerCount − 1))
-             × (1 + min(levelsCleared, MaxLevelLimit) × HealthPackValueLevelIncrease)
-             × (BaseMultiplier + randomMultiplier − 1) ⌉
-```
-
-### Energy Crystals
-```
-final = ⌈ base × (1 + min(levelsCleared, MaxLevelLimit) × CrystalValueLevelIncrease)
-             × (BaseMultiplier + randomMultiplier − 1) ⌉
-```

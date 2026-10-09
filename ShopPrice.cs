@@ -66,6 +66,6 @@ namespace ShopPriceModifier
     {
         public const string GUID = "ShopPriceModifier";
         public const string Name = "ShopPriceModifier";
-        public const string Version = "1.0.5";
+        public const string Version = "1.0.6";
     }
 }

@@ -31,13 +31,13 @@ namespace ShopPriceModifier
 
             RandEnable = Config.Bind("Random Price", "RandomEnable", false,new ConfigDescription("是否启用全局商品价格随机波动（总开关）", new AcceptableValueRange<bool>(false, true)));
             RandMinMult = Config.Bind("Random Price", "RandomMinMultiplier", 0.8f,new ConfigDescription("随机价格最小倍率 (0.1~2，默认0.8)", new AcceptableValueRange<float>(0.1f, 2f)));
-            RandMaxMult = Config.Bind("Random Price", "RandomMaxMultiplier", 1.2f,new ConfigDescription("随机价格最大倍率 (0.1~2，默认1.2)", new AcceptableValueRange<float>(0.1f, 2f)));
+            RandMaxMult = Config.Bind("Random Price", "RandomMaxMultiplier", 1.2f,new ConfigDescription("随机价格最大倍率 (0.1~5，默认1.2)", new AcceptableValueRange<float>(0.1f, 5f)));
 
             CustomIncEnable = Config.Bind("Advanced", "EnableCustomBaseIncrease", false,new ConfigDescription("是否启用自定义成长值（覆盖游戏原生的升级/医疗包/水晶成长数值）", new AcceptableValueRange<bool>(false, true)));
             UpgInc = Config.Bind("Advanced", "UpgradeValueOwnedIncrease", 0.5f,new ConfigDescription("升级物品购买次数成长值 (0.1~1，默认0.5)", new AcceptableValueRange<float>(0.1f, 1f)));
             HpInc = Config.Bind("Advanced", "HealthPackValueLevelIncrease", 0.05f,new ConfigDescription("医疗包等级成长值 (0.01~0.1，默认0.05)", new AcceptableValueRange<float>(0.01f, 0.1f)));
             CryInc = Config.Bind("Advanced", "CrystalValueLevelIncrease", 0.2f,new ConfigDescription("能量水晶等级成长值 (0.01~0.5，默认0.01)", new AcceptableValueRange<float>(0.01f, 0.5f)));
-            MaxLevel = Config.Bind("Advanced", "MaxLevelLimit", 15,new ConfigDescription("价格计算最大关卡限制 (15~50，默认15)", new AcceptableValueRange<int>(15, 50)));
+            MaxLevel = Config.Bind("Advanced", "MaxLevelLimit", 15,new ConfigDescription("价格计算最大关卡限制 (15~100，默认15)", new AcceptableValueRange<int>(15, 100)));
 
             DebugLog = Config.Bind("Logging Settings", "EnableDebugLogging", false,new ConfigDescription("是否启用调试日志输出（启用后打印每件商品价格计算详情）", new AcceptableValueRange<bool>(false, true)));
 
@@ -48,8 +48,8 @@ namespace ShopPriceModifier
             HpPlayerInfluence.Value = Mathf.Clamp(HpPlayerInfluence.Value, -0.1f, 1f);
             CryBaseMult.Value = Mathf.Clamp(CryBaseMult.Value, 0.01f, 10f);
             RandMinMult.Value = Mathf.Clamp(RandMinMult.Value, 0.1f, 2f);
-            RandMaxMult.Value = Mathf.Clamp(RandMaxMult.Value, 0.1f, 2f);
-            MaxLevel.Value = Mathf.Clamp(MaxLevel.Value, 15, 50);
+            RandMaxMult.Value = Mathf.Clamp(RandMaxMult.Value, 0.1f, 5f);
+            MaxLevel.Value = Mathf.Clamp(MaxLevel.Value, 15, 100);
             UpgInc.Value = Mathf.Clamp(UpgInc.Value, 0.1f, 1f);
             HpInc.Value = Mathf.Clamp(HpInc.Value, 0.01f, 0.1f);
             CryInc.Value = Mathf.Clamp(CryInc.Value, 0.01f, 0.5f);
