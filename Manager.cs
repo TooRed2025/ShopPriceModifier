@@ -1,6 +1,4 @@
-using HarmonyLib;
 using System;
-using System.Reflection;
 using UnityEngine;
 
 namespace ShopPriceModifier
@@ -8,9 +6,6 @@ namespace ShopPriceModifier
     internal class Manager
     {
         private static System.Random random = new System.Random();
-        private static readonly FieldInfo upgInc = AccessTools.Field(typeof(ShopManager), "upgradeValueIncrease");
-        private static readonly FieldInfo hpInc = AccessTools.Field(typeof(ShopManager), "healthPackValueIncrease");
-        private static readonly FieldInfo cryInc = AccessTools.Field(typeof(ShopManager), "crystalValueIncrease");
 
         //升级物品价格调整
         public static void ModifyUpgradePrice(float _value, Item item, ref float __result, ShopManager __instance)
@@ -24,7 +19,7 @@ namespace ShopPriceModifier
             //重写原版升级增幅
             float upgradeInc = SetConfig.CustomIncEnable.Value
                 ? SetConfig.UpgInc.Value
-                : (float)upgInc.GetValue(__instance);
+                : __instance.upgradeValueIncrease;
             final += final * upgradeInc * (float)StatsManager.instance.GetItemsUpgradesPurchased(item.name);
             //随机倍率
             float randomMulti = GetGlobalRandomMultiplier();
@@ -60,7 +55,7 @@ namespace ShopPriceModifier
 
             float healthInc = SetConfig.CustomIncEnable.Value
                 ? SetConfig.HpInc.Value
-                : (float)hpInc.GetValue(__instance);
+                : __instance.healthPackValueIncrease;
             final += final * healthInc * (float)maxLevel;
 
             float randomMulti = GetGlobalRandomMultiplier();
@@ -91,7 +86,7 @@ namespace ShopPriceModifier
 
             float cryIncrease = SetConfig.CustomIncEnable.Value
                 ? SetConfig.CryInc.Value
-                : (float)cryInc.GetValue(__instance);
+                : __instance.crystalValueIncrease;
             final += final * cryIncrease * (float)maxLevel;
 
             float randomMulti = GetGlobalRandomMultiplier();

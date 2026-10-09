@@ -37,7 +37,7 @@ namespace ShopPriceModifier
             UpgInc = Config.Bind("Advanced", "UpgradeValueOwnedIncrease", 0.5f,new ConfigDescription("升级物品购买次数成长值 (0.1~1，默认0.5)", new AcceptableValueRange<float>(0.1f, 1f)));
             HpInc = Config.Bind("Advanced", "HealthPackValueLevelIncrease", 0.05f,new ConfigDescription("医疗包等级成长值 (0.01~0.1，默认0.05)", new AcceptableValueRange<float>(0.01f, 0.1f)));
             CryInc = Config.Bind("Advanced", "CrystalValueLevelIncrease", 0.2f,new ConfigDescription("能量水晶等级成长值 (0.01~0.5，默认0.01)", new AcceptableValueRange<float>(0.01f, 0.5f)));
-            MaxLevel = Config.Bind("Advanced", "MaxLevelLimit", 15,new ConfigDescription("价格计算最大等级限制 (15~50，默认15)", new AcceptableValueRange<int>(15, 50)));
+            MaxLevel = Config.Bind("Advanced", "MaxLevelLimit", 15,new ConfigDescription("价格计算最大关卡限制 (15~50，默认15)", new AcceptableValueRange<int>(15, 50)));
 
             DebugLog = Config.Bind("Logging Settings", "EnableDebugLogging", false,new ConfigDescription("是否启用调试日志输出（启用后打印每件商品价格计算详情）", new AcceptableValueRange<bool>(false, true)));
 
